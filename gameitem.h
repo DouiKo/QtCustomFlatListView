@@ -29,11 +29,8 @@ public:
     QString getFilePath() const;
     void setFilePath(const QString &value);
 
-    bool isDataChanged() const;
-    void setDataChanged(bool value);
-
 private:
-    bool dataChanged;
+    QPixmap icon;
     QString filePath;
     QString name;
     QString time;

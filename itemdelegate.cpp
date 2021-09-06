@@ -2,10 +2,16 @@
 
 #include <QPainter>
 #include <QDebug>
+#include <QTimer>
+#include <QEvent>
+#include <QMouseEvent>
 
 ItemDelegate::ItemDelegate()
 {
+}
 
+ItemDelegate::~ItemDelegate()
+{
 }
 
 //QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -28,47 +34,45 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     if(index.isValid())
     {
         painter->save();
-
+        painter->setRenderHint(QPainter::Antialiasing);
 
         QVariant variant = index.data(Qt::UserRole + 1);
         GameItem gameData = variant.value<GameItem>();
 
         QRectF rect;
-        rect.setX(option.rect.x());
+        rect.setX(option.rect.x() + 5);
         rect.setY(option.rect.y());
-        rect.setWidth(option.widget->width()-15);
+        rect.setWidth(option.widget->width() - 15);
         rect.setHeight(option.rect.height());
 
         //绘制每个item下边框
-        QPen pen(QColor(68,68,68));
+        QPen pen(QColor(235,235,235));
         pen.setWidthF(0.5);
         painter->setPen(pen);
         painter->drawLine(rect.left(),rect.bottom(),rect.right(),rect.bottom());
 
-//        painter->drawRect(rect);
-//        qDebug()<<rect;
         //响应鼠标状态
-//        if(option.state.testFlag(QStyle::State_Selected)){
-//            painter->setPen(QPen(Qt::blue));
-//            painter->setBrush(QColor(229, 241, 255));
-//            painter->drawPath(path);
-//        }else if(option.state.testFlag(QStyle::State_MouseOver)){
-//            painter->setPen(QPen(Qt::green));
-//            painter->setBrush(Qt::NoBrush);
-//            painter->drawPath(path);
-//        }else{
-//            painter->setPen(QPen(Qt::gray));
-//            painter->setBrush(Qt::NoBrush);
-//            painter->drawPath(path);
-//        }
-        //
+        if(option.state.testFlag(QStyle::State_Selected)){
+            painter->setPen(QColor(236,239,255));
+            painter->setBrush(QColor(236,239,255));
+            painter->drawRoundedRect(rect,2,2);
 
+        }else if(option.state.testFlag(QStyle::State_MouseOver)){
+            painter->setPen(QColor(235,235,235));
+            painter->setBrush(QColor(235,235,235));
+            painter->drawRoundedRect(rect,2,2);
+
+            painter->setPen(Qt::green);
+            painter->setBrush(Qt::green);
+            painter->drawRoundedRect(rect.left() + 390,rect.top() + 9,18,18,5,5);
+            painter->drawRoundedRect(rect.left() + 368,rect.top() + 9,18,18,5,5);
+        }
 
         //绘制数据位置
-        QRect imageRect = QRect(rect.left() +10,  rect.top() +4, 15, 15);
-        QRect nameRect = QRect(rect.left()  +30,  rect.top() + painter->fontMetrics().height() / 2, 400, painter->fontMetrics().height());
-        QRect tagsRect = QRect(rect.left()  +435, rect.top() + painter->fontMetrics().height() / 2, 200, painter->fontMetrics().height());
-        QRect timeRect = QRect(rect.right() -70,  rect.top() + painter->fontMetrics().height() / 2, 70,  painter->fontMetrics().height());
+        QRect imageRect = QRect(rect.left() +10,  rect.top() + 10, 16, 16);
+        QRect nameRect = QRect(rect.left()  +30,  rect.top() + painter->fontMetrics().height(), 400, painter->fontMetrics().height());
+        QRect tagsRect = QRect(rect.left()  +435, rect.top() + painter->fontMetrics().height(), 200, painter->fontMetrics().height());
+        QRect timeRect = QRect(rect.right() -70,  rect.top() + painter->fontMetrics().height(), 70,  painter->fontMetrics().height());
 
         painter->setPen(QColor(68,68,68));
         painter->setFont(QFont("等线", 8));
@@ -87,5 +91,6 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
 QSize ItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    return QSize(735, 30);
+    return QSize(735, 36);
 }
+

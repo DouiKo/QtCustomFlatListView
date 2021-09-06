@@ -15,7 +15,9 @@ Widget::Widget(QWidget *parent)
     ui->listView->setItemDelegate(new ItemDelegate());
     ui->listView->setModel(listModel);
     ui->listView->setViewMode(QListView::IconMode);
-    ui->listView->setSpacing(5);
+    ui->listView->setDragEnabled(false);
+    ui->listView->setEditTriggers(QListView::NoEditTriggers);
+    connect(ui->listView,&ListViewPro::mousePressPos,this,&Widget::onMousePressPos);
 }
 
 Widget::~Widget()
@@ -23,13 +25,20 @@ Widget::~Widget()
     delete ui;
 }
 
+void Widget::onMousePressPos(QPoint point)
+{
+    QRect rect = ui->listView->visualRect(ui->listView->currentIndex());
+    qDebug()<<rect.y()<<rect.height();
+//    if(point.x() > 373 && point.x() < 391 && point.y() > ){
 
+//    }
+}
 
 void Widget::initGameData()
 {
     listModel = new QStandardItemModel(this);
 
-    for (int i = 0; i < 500; ++i) {
+    for (int i = 0; i < 10; ++i) {
         QStandardItem *item = new QStandardItem();
         GameItem game;
         game.setName("这里是标题" + QString::number(i));
@@ -41,6 +50,12 @@ void Widget::initGameData()
         item->setData(variant,Qt::UserRole+1);
         listModel->appendRow(item);
     }
-
 }
 
+void Widget::on_listView_clicked(const QModelIndex &index)
+{
+//    QVariant variant = ui->listView->currentIndex().data(Qt::UserRole + 1);
+//    GameItem gameData = variant.value<GameItem>();
+//    qDebug()<<gameData.getName();
+//    qDebug()<<ui->listView->visualRect(index);
+}

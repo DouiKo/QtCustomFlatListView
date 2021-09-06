@@ -19,6 +19,12 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
+private slots:
+
+    void onMousePressPos(QPoint point);
+
+    void on_listView_clicked(const QModelIndex &index);
+
 private:
     void initGameData();
 

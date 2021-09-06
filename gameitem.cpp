@@ -61,11 +61,7 @@ QString GameItem::getTagsString() const
 
 QPixmap GameItem::getIcon() const
 {
-    QFileInfo fileInfo(filePath);
-    QFileIconProvider seekIcon;
-    QIcon icon = seekIcon.icon(fileInfo);
-    QPixmap pixmap=icon.pixmap(QSize(32,32));
-    return pixmap;
+    return icon;
 }
 
 QString GameItem::getFilePath() const
@@ -76,15 +72,9 @@ QString GameItem::getFilePath() const
 void GameItem::setFilePath(const QString &value)
 {
     filePath = value;
-}
-
-bool GameItem::isDataChanged() const
-{
-    return dataChanged;
-}
-
-void GameItem::setDataChanged(bool value)
-{
-    dataChanged = value;
+    QFileInfo fileInfo(filePath);
+    QFileIconProvider seekIcon;
+    QIcon image = seekIcon.icon(fileInfo);
+    icon = image.pixmap(QSize(32,32));
 }
 

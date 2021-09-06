@@ -18,12 +18,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     gameitem.cpp \
     itemdelegate.cpp \
+    listviewpro.cpp \
     main.cpp \
     widget.cpp
 
 HEADERS += \
     gameitem.h \
     itemdelegate.h \
+    listviewpro.h \
     widget.h
 
 FORMS += \
