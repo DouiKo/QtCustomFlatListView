@@ -69,13 +69,14 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         }
 
         //绘制数据位置
-        QRect imageRect = QRect(rect.left() +10,  rect.top() + 10, 16, 16);
-        QRect nameRect = QRect(rect.left()  +30,  rect.top() + painter->fontMetrics().height(), 400, painter->fontMetrics().height());
-        QRect tagsRect = QRect(rect.left()  +435, rect.top() + painter->fontMetrics().height(), 200, painter->fontMetrics().height());
-        QRect timeRect = QRect(rect.right() -70,  rect.top() + painter->fontMetrics().height(), 70,  painter->fontMetrics().height());
-
         painter->setPen(QColor(68,68,68));
         painter->setFont(QFont("等线", 8));
+        QRect imageRect = QRect(rect.left() +10,  rect.top() + 10, 16, 16);
+        QRect nameRect = QRect(rect.left()  +30,  rect.top() + (rect.height() - painter->fontMetrics().height()) / 2, 400, painter->fontMetrics().height());
+        QRect tagsRect = QRect(rect.left()  +435, rect.top() + (rect.height() - painter->fontMetrics().height()) / 2, 200, painter->fontMetrics().height());
+        QRect timeRect = QRect(rect.right() -70,  rect.top() + (rect.height() - painter->fontMetrics().height()) / 2, 70,  painter->fontMetrics().height());
+
+
         painter->drawText(nameRect,Qt::AlignLeft,gameData.getName());
 //        painter->drawRect(nameRect);
         painter->drawText(tagsRect,Qt::AlignLeft,gameData.getTagsString());
