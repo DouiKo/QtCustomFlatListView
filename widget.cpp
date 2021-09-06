@@ -28,10 +28,12 @@ Widget::~Widget()
 void Widget::onMousePressPos(QPoint point)
 {
     QRect rect = ui->listView->visualRect(ui->listView->currentIndex());
-    qDebug()<<rect.y()<<rect.height();
-//    if(point.x() > 373 && point.x() < 391 && point.y() > ){
-
-//    }
+    if(point.x() > 373 && point.x() < 391 && point.y() > rect.y() + 9 && point.y() < rect.y() + rect.height() - 9){
+        qDebug()<<"clicked button1";
+    }
+    if(point.x() > 396 && point.x() < 414 && point.y() > rect.y() + 9 && point.y() < rect.y() + rect.height() - 9){
+        qDebug()<<"clicked button2";
+    }
 }
 
 void Widget::initGameData()
