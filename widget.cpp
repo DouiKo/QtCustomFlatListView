@@ -38,13 +38,14 @@ void Widget::initGameData()
 {
     listModel = new QStandardItemModel(this);
 
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 500; ++i) {
         QStandardItem *item = new QStandardItem();
         GameItem game;
-        game.setName("这里是标题" + QString::number(i));
+        game.setName("千恋万花" + QString::number(i));
         game.setTime("09/05 22:26");
-        game.insertTagToList("标签1");
-        game.insertTagToList("标签2");
+        game.insertTagToList("纯爱");
+        game.insertTagToList("日常");
+        game.insertTagToList("柚子");
         game.setFilePath("C:/Users/29856/AppData/Local/GitHubDesktop/GitHubDesktop.exe");
         QVariant variant = QVariant::fromValue(game);
         item->setData(variant,Qt::UserRole+1);

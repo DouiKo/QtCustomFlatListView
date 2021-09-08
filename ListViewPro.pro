@@ -20,18 +20,24 @@ SOURCES += \
     itemdelegate.cpp \
     listviewpro.cpp \
     main.cpp \
+    splashscreen.cpp \
     widget.cpp
 
 HEADERS += \
     gameitem.h \
     itemdelegate.h \
     listviewpro.h \
+    splashscreen.h \
     widget.h
 
 FORMS += \
+    splashscreen.ui \
     widget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    i.qrc

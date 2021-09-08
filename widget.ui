@@ -15,7 +15,11 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <widget class="ListViewPro" name="listView"/>
+    <widget class="ListViewPro" name="listView">
+     <property name="styleSheet">
+      <string notr="true">QScrollBar{width:0;height:0}</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

@@ -62,17 +62,18 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->setBrush(QColor(235,235,235));
             painter->drawRoundedRect(rect,2,2);
 
-            painter->setPen(Qt::green);
-            painter->setBrush(Qt::green);
+            painter->setPen(Qt::gray);
+            painter->setBrush(Qt::gray);
             painter->drawRoundedRect(rect.left() + 390,rect.top() + 9,18,18,5,5);
-            painter->drawRoundedRect(rect.left() + 368,rect.top() + 9,18,18,5,5);
         }
 
         //绘制数据位置
-        QRect imageRect = QRect(rect.left() +10,  rect.top() + 10, 16, 16);
-        QRect nameRect = QRect(rect.left()  +30,  rect.top() + painter->fontMetrics().height(), 400, painter->fontMetrics().height());
-        QRect tagsRect = QRect(rect.left()  +435, rect.top() + painter->fontMetrics().height(), 200, painter->fontMetrics().height());
-        QRect timeRect = QRect(rect.right() -70,  rect.top() + painter->fontMetrics().height(), 70,  painter->fontMetrics().height());
+        painter->setPen(QColor(68,68,68));
+        painter->setFont(QFont("等线", 8));
+        QRect imageRect = QRect(rect.left() +15,  rect.top() + 10, 16, 16);
+        QRect nameRect = QRect(rect.left()  +35,  rect.top() + (rect.height() - painter->fontMetrics().height()) / 2, 400, painter->fontMetrics().height());
+        QRect tagsRect = QRect(rect.left()  +445, rect.top() + (rect.height() - painter->fontMetrics().height()) / 2, 200, painter->fontMetrics().height());
+        QRect timeRect = QRect(rect.right() -70,  rect.top() + (rect.height() - painter->fontMetrics().height()) / 2, 70,  painter->fontMetrics().height());
 
         painter->setPen(QColor(68,68,68));
         painter->setFont(QFont("等线", 8));
