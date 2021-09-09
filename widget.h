@@ -6,6 +6,7 @@
 #include <QSortFilterProxyModel>
 #include <QStandardItem>
 #include "gameitem.h"
+#include <QMenu>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -23,12 +24,21 @@ private slots:
 
     void onMousePressPos(QPoint point);
 
-    void on_listView_clicked(const QModelIndex &index);
+    void on_listView_doubleClicked(const QModelIndex &index);
+
+    void onListViewMenuRequested(const QPoint point);
 
 private:
     void initGameData();
 
+    void createListViewMenu();
+
 private:
+    QMenu *listViewMenu;
+    QAction *settingAction;
+    QAction *deleteAction;
+    QAction *showViewAction;
+    QAction *startAction;
     QStandardItemModel *listModel;
     Ui::Widget *ui;
 };

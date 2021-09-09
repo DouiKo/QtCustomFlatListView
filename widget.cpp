@@ -18,6 +18,8 @@ Widget::Widget(QWidget *parent)
     ui->listView->setDragEnabled(false);
     ui->listView->setEditTriggers(QListView::NoEditTriggers);
     connect(ui->listView,&ListViewPro::mousePressPos,this,&Widget::onMousePressPos);
+
+    createListViewMenu();
 }
 
 Widget::~Widget()
@@ -28,10 +30,6 @@ Widget::~Widget()
 void Widget::onMousePressPos(QPoint point)
 {
     QRect rect = ui->listView->visualRect(ui->listView->currentIndex());
-    qDebug()<<rect.y()<<rect.height();
-//    if(point.x() > 373 && point.x() < 391 && point.y() > ){
-
-//    }
 }
 
 void Widget::initGameData()
@@ -53,10 +51,45 @@ void Widget::initGameData()
     }
 }
 
-void Widget::on_listView_clicked(const QModelIndex &index)
+void Widget::createListViewMenu()
 {
-//    QVariant variant = ui->listView->currentIndex().data(Qt::UserRole + 1);
-//    GameItem gameData = variant.value<GameItem>();
-//    qDebug()<<gameData.getName();
-//    qDebug()<<ui->listView->visualRect(index);
+    ui->listView->setContextMenuPolicy(Qt::ContextMenuPolicy::CustomContextMenu);
+    connect(ui->listView,&QListView::customContextMenuRequested,this,&Widget::onListViewMenuRequested);
+    listViewMenu = new QMenu(this);
+
+    startAction = new QAction(this);
+    startAction->setText("启动");
+    //slot
+    listViewMenu->addAction(startAction);
+
+    showViewAction = new QAction(this);
+    showViewAction->setText("详细信息");
+    //slot
+    listViewMenu->addAction(showViewAction);
+
+    settingAction = new QAction(this);
+    settingAction->setText("游戏设置");
+    //slot
+    listViewMenu->addAction(settingAction);
+
+
+    listViewMenu->addSeparator();
+    deleteAction = new QAction(this);
+    deleteAction->setText("删除游戏");
+    //slot
+    listViewMenu->addAction(deleteAction);
+}
+
+void Widget::on_listView_doubleClicked(const QModelIndex &index)
+{
+    QVariant variant = ui->listView->currentIndex().data(Qt::UserRole + 1);
+    GameItem gameData = variant.value<GameItem>();
+    qDebug()<<gameData.getName();
+}
+
+void Widget::onListViewMenuRequested(const QPoint point)
+{
+    if(ui->listView->indexAt(point).isValid()){
+        listViewMenu->exec(QCursor::pos());
+    }
 }
